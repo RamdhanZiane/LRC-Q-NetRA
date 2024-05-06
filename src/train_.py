@@ -31,7 +31,7 @@ import networkx as nx
 # import scipy package for geting laplacian of graph, need to install networkx by: pip install scipy
 from scipy.sparse import csgraph
 
-def train(A_nx=None, dictionary=None):
+def train(A_nx=None, lrc=True, dictionary=None):
     """Parameters to parse
             Path Arguments: The input and output directory
             Data Processing Arguments: data preprocessing for generating ``walks'' from the graph
@@ -176,10 +176,13 @@ def train(A_nx=None, dictionary=None):
 
 
     print(os.getcwd())
+    print('cuda is ' + str(torch.cuda.is_available()))
+    print(args.cuda)
     # A_nx = nx.read_edgelist(args.data_path,nodetype = int, create_using=nx.DiGraph())  # if the graph is with sparse edge format, each line one edge, then use this
     if not A_nx:
         A_nx = nx.read_adjlist('../data/karate.adjlist', nodetype=int)                        # use this for reading adjacent list format graph
-    A_nx = generate_LRC(A_nx,False)
+    if lrc:
+        A_nx = generate_LRC(A_nx,False)
 
     A = nx.to_scipy_sparse_array(A_nx)                                         # transfer to sparse matrix format
     L = csgraph.laplacian(A, normed=False)                                      # use csgraph package to calculate the laplacian

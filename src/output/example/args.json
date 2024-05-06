@@ -2,7 +2,7 @@
     "data_path": "../data/karate.adjlist",
     "outf": "example",
     "maxlen": 100,
-    "nhidden": 2,
+    "nhidden": 4,
     "emsize": 30,
     "nlayers": 1,
     "noise_radius": 0.2,
@@ -34,6 +34,6 @@
     "sample": false,
     "log_interval": 200,
     "seed": 1111,
-    "cuda": false,
+    "cuda": "store_true",
     "ntokens": 34
 }
